@@ -1,0 +1,69 @@
+{% extends 'scraping/base.html' %}
+
+{% block title %} Home {% endblock %}
+
+
+{% block content %}
+    
+    {% if object_list %}
+    <h2 class='text-center'>Результаты согласно вашего запроса.</h3>
+        {% for obj in object_list %}
+            <div class="card my-3">
+                <div class="card-header">
+                    <a href="{{ obj.url }}">{{ obj.title }}</a>
+                </div>
+                <div class="card-body">
+                    <h4>{{ obj.company }}</h4>
+                <p class="card-text">{{ obj.description }}</p>
+                <p>{{ obj.city.name }} | {{ obj.language.name }} | <small>{{ obj.timestamp|date:'d-m-Y' }}</small></p>
+                </div>
+            </div>           
+        {% endfor %}
+    <div class="row">
+        <div class="col">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if object_list.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?city={{city}}&language={{ language }}&page={{ object_list.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% for page in object_list.paginator.page_range %}
+                        {% if page > object_list.number|add:'-3' and page < object_list.number|add:'3' %}
+                            <li class="page-item {% if page == object_list.number %} active {% endif %}">
+                                <a class="page-link" href="?city={{city}}&language={{ language }}&page={{page}}">{{page}}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                  {% if object_list.has_next %}
+                    <li class="page-item">
+                      <a class="page-link" href="?city={{city}}&language={{ language }}&page={{ object_list.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="form-group">
+                <form method="GET" action="{% url 'list_view_url' %}">
+                    {{ form.as_p }}
+                    <div class='text-center'>
+                        <input type="submit" class="btn btn-primary" value="Найти">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% else %} 
+        <h2 class="text-center">К сожалению по вашему запросу ничего не найдено</h2>
+    {% endif %}
+    
+    
+{% endblock %}

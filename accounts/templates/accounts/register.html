@@ -1,0 +1,22 @@
+{% extends 'scraping/base.html' %}
+
+{% block title %} Registration {% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h4 class='text-center'>Регистрация</h4>
+            <div class="form-group">
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class='text-center'>
+                        <input type="submit" class="btn btn-primary" value="Зарегистрироваться">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

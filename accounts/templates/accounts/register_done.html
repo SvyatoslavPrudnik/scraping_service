@@ -1,0 +1,20 @@
+{% extends 'scraping/base.html' %}
+
+{% block title %} Register {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col md-8 mx-auto text-center">
+            <h4>
+                Здравствуйте, {{ new_user.email }}
+            </h4>
+            <p>
+                Вы зарегистрировались в системе
+                Теперь вы можете <a href="{% url 'accounts:login_url' %}">войти</a>
+            </p>
+        </div>
+    </div>
+
+{% endblock %}
+

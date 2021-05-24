@@ -1,0 +1,26 @@
+{% extends 'scraping/base.html' %}
+
+{% block title %} Home {% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col text-center mb-3">
+            <h2>Сервис по сбору и рассылке вакансий</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h4>Для просмотра доступных вакансий, заполните форму по одному из полей(город, язык программирования)</h4>
+            <div class="form-group">
+                <form method="GET" action="{% url 'list_view_url' %}">
+                    {{ form.as_p }}
+                    <div class='text-center'>
+                        <input type="submit" class="btn btn-primary" value="Найти">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
